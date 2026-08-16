@@ -385,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
-                      color: const Color(0xFF9B59B6).withValues(alpha: 0.3),
+                      color: const Color(0xFF9B59B6).withOpacity(0.3),
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: const BoxDecoration(
@@ -448,10 +448,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: _symptoms.map((symptom) {
+                    children: _symptoms.map((symptom) {
                   return Chip(
                     label: Text(symptom),
-                    backgroundColor: const Color(0xFF9B59B6).withValues(alpha: 0.1),
+                    backgroundColor: const Color(0xFF9B59B6).withOpacity(0.1),
                     deleteIcon: const Icon(Icons.close, size: 18),
                     onDeleted: () {
                       setState(() {
