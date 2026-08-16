@@ -299,8 +299,8 @@ class _SetupScreenState extends State<SetupScreen> {
                     setState(() => _biometricEnabled = false);
                   }
                 },
-                activeTrackColor: const Color(0xFF9B59B6).withValues(alpha: 0.5),
-                activeThumbColor: const Color(0xFF9B59B6),
+                activeTrackColor: const Color(0xFF9B59B6).withOpacity(0.5),
+                activeColor: const Color(0xFF9B59B6),
               ),
             ),
           ),
