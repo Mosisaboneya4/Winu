@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../services/database_service.dart';
 import '../services/prediction_engine.dart';
+import 'calendar_screen.dart';
+import 'settings_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -35,7 +37,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator(color: Color(0xFF9B59B6)))
-          : IndexedStack(index: _selectedIndex, children: [_buildHome()]),
+          : IndexedStack(index: _selectedIndex, children: [
+              _buildHome(),
+              const CalendarScreen(),
+              // simple placeholder for Insights
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.insights, size: 64, color: Color(0xFF9B59B6)),
+                    SizedBox(height: 16),
+                    Text('Insights', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF9B59B6))),
+                  ],
+                ),
+              ),
+              const SettingsScreen(),
+            ]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (i) => setState(() => _selectedIndex = i),
