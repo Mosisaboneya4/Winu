@@ -83,7 +83,9 @@ class _SetupScreenState extends State<SetupScreen> {
     // Navigate to dashboard after successful setup
     setState(() => _isLoading = false);
     if (mounted) {
-      Navigator.of(context).pushReplacementNamed('/dashboard');
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const DashboardScreen(),
+      ));
     }
   }
 
