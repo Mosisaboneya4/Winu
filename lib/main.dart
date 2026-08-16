@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'screens/setup_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'services/secure_storage_service.dart';
+import 'services/database_service.dart';
+import 'services/notification_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize services
+  await DatabaseService.instance.database;
+  await NotificationService.instance.initialize();
+  
   runApp(const PeriodTrackerApp());
 }
 
@@ -11,7 +21,7 @@ class PeriodTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Period Tracker',
+      title: 'Winu - Women\'s Health',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFF9B59B6),
@@ -65,7 +75,48 @@ class PeriodTrackerApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: const AppInitializer(),
     );
+  }
+}
+
+class AppInitializer extends StatefulWidget {
+  const AppInitializer({super.key});
+
+  @override
+  State<AppInitializer> createState() => _AppInitializerState();
+}
+
+class _AppInitializerState extends State<AppInitializer> {
+  bool _isInitialized = false;
+  bool _isSetupComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkSetupStatus();
+  }
+
+  Future<void> _checkSetupStatus() async {
+    final storageService = SecureStorageService();
+    final isPinSet = await storageService.isPinSet();
+    
+    setState(() {
+      _isSetupComplete = isPinSet;
+      _isInitialized = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(color: Color(0xFF9B59B6)),
+        ),
+      );
+    }
+
+    return _isSetupComplete ? const DashboardScreen() : const SetupScreen();
   }
 }
