@@ -314,9 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final nextPeriod = _getNextPeriodDate();
     final ovulationDate = _getOvulationDate();
-    final daysUntilNextPeriod = nextPeriod != null
-        ? nextPeriod.difference(DateTime.now()).inDays
-        : null;
+    final daysUntilNextPeriod = nextPeriod?.difference(DateTime.now()).inDays;
 
     return Scaffold(
       appBar: AppBar(
@@ -387,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
-                      color: const Color(0xFF9B59B6).withOpacity(0.3),
+                      color: const Color(0xFF9B59B6).withValues(alpha: 0.3),
                       shape: BoxShape.circle,
                     ),
                     selectedDecoration: const BoxDecoration(
@@ -453,7 +451,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: _symptoms.map((symptom) {
                   return Chip(
                     label: Text(symptom),
-                    backgroundColor: const Color(0xFF9B59B6).withOpacity(0.1),
+                    backgroundColor: const Color(0xFF9B59B6).withValues(alpha: 0.1),
                     deleteIcon: const Icon(Icons.close, size: 18),
                     onDeleted: () {
                       setState(() {
@@ -475,11 +473,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       children: [
-                        Icon(Icons.info_outline, color: const Color(0xFF9B59B6)),
-                        const SizedBox(width: 8),
-                        const Text(
+                        Icon(Icons.info_outline, color: Color(0xFF9B59B6)),
+                        SizedBox(width: 8),
+                        Text(
                           'Cycle Info',
                           style: TextStyle(
                             fontSize: 16,
