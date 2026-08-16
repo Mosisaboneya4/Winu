@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/health_data.dart';
@@ -158,6 +159,7 @@ class DatabaseService {
   }
 
   Future<List<PeriodEntry>> readAllPeriods() async {
+    if (kIsWeb) return <PeriodEntry>[];
     final db = await database;
     final result = await db.query('periods', orderBy: 'startDate DESC');
     return result.map((json) => PeriodEntry.fromMap(json)).toList();
