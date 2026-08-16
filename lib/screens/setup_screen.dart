@@ -74,7 +74,7 @@ class _SetupScreenState extends State<SetupScreen> {
 
   Future<void> _completeSetup() async {
     setState(() => _isLoading = true);
-    // Navigate to dashboard will be handled by AppInitializer
+    // Navigate to dashboard after successful setup
     setState(() => _isLoading = false);
     if (mounted) {
       Navigator.of(context).pushReplacementNamed('/dashboard');
@@ -121,13 +121,13 @@ class _SetupScreenState extends State<SetupScreen> {
               ),
               const SizedBox(height: 40),
               
-              // Progress indicator
+              // Progress indicator (single-step PIN setup)
               _buildProgressIndicator(),
               const SizedBox(height: 32),
               
               // Step content
               Expanded(
-                child: _currentStep == 0 ? _buildPinSetup() : _buildBiometricSetup(),
+                child: _buildPinSetup(),
               ),
             ],
           ),
@@ -141,14 +141,14 @@ class _SetupScreenState extends State<SetupScreen> {
       children: [
         Expanded(
           child: LinearProgressIndicator(
-            value: (_currentStep + 1) / 2,
+            value: 1.0,
             backgroundColor: const Color(0xFFE8DAEF),
             valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF9B59B6)),
           ),
         ),
         const SizedBox(width: 12),
         Text(
-          '${_currentStep + 1}/2',
+          '1/1',
           style: const TextStyle(
             color: Color(0xFF9B59B6),
             fontWeight: FontWeight.bold,
