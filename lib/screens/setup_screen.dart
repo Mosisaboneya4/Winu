@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../services/secure_storage_service.dart';
+import 'dashboard_screen.dart';
 
 class SetupScreen extends StatefulWidget {
   const SetupScreen({super.key});
@@ -65,7 +66,9 @@ class _SetupScreenState extends State<SetupScreen> {
         _errorMessage = null;
       });
       if (mounted) {
-        Navigator.of(context).pushReplacementNamed('/dashboard');
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const DashboardScreen(),
+        ));
       }
     } else {
       setState(() {
