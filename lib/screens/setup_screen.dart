@@ -58,12 +58,15 @@ class _SetupScreenState extends State<SetupScreen> {
 
     setState(() => _isLoading = true);
     final success = await _storageService.setPin(pin);
-    
+
     if (success) {
       setState(() {
-        _currentStep = 1;
+        _isLoading = false;
         _errorMessage = null;
       });
+      if (mounted) {
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+      }
     } else {
       setState(() {
         _errorMessage = 'Failed to set PIN';
