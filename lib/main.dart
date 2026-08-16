@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'screens/setup_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'services/secure_storage_service.dart';
@@ -9,7 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Initialize services
-  await DatabaseService.instance.database;
+  if (!kIsWeb) {
+    await DatabaseService.instance.database;
+  }
   await NotificationService.instance.initialize();
   
   runApp(const PeriodTrackerApp());
