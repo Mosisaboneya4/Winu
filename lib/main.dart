@@ -38,12 +38,7 @@ class PeriodTrackerApp extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
         ),
-        cardTheme: const CardTheme(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
-        ),
+        
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF9B59B6),
